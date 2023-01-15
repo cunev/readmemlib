@@ -67,7 +67,7 @@ Napi::Value write_integer(const Napi::CallbackInfo &info)
   unsigned long addr = info[1].As<Napi::Number>().Uint32Value();
   int value = info[2].As<Napi::Number>().Int32Value();
 
-  ptrace(PTRACE_ATTACH, pid, NULL, NULL);
+  ptrace(PTRACE_INTERRUPT, pid, NULL, PTRACE_O_TRACEEXEC);
   wait(NULL);
   std::stringstream ss;
   ss << "/proc/" << pid << "/mem";
